@@ -1,61 +1,55 @@
 import random
-class log_in:
-    @staticmethod
-    def log_in():
-        global log_in1
-        log_in1 = True
-        userName = input("Create username: ")
-        password = input ("Create your passwod: ")
-        if userName == "None":
-            print ("Error. Your username cannot contain this")
-            log_in1 = False
 
-        else:
-            userName1 = userName
-        if password == "None":
-            print ("Your password cannot be ""None""")
-        else:
-            password1 = password
+class LogIn:
+    def __init__(self):
+        self.logged_in = False
+        self.username = ""
+        self.password = ""
 
-        @staticmethod
-        def show():
-            print ("Your username is: ",userName1, "and your password is: ", password1)
+    def log_in(self):
+        self.username = input("Create username: ")
+        self.password = input("Create your password: ")
 
-        @staticmethod
-        def see_name_and_password():
-            print ("Do you want to see password and username?")
-            see_name_and_password = input ("Write """"yes """"or """"no: """)
-            if see_name_and_password == "yes":
-                show()
+        if self.username.lower() == "none":
+            print("Error. Your username cannot contain 'None'")
+            return False
 
+        if self.password.lower() == "none":
+            print("Your password cannot be 'None'")
+            return False
 
+        self.logged_in = True
+        return True
 
-class calculator:
+    def show(self):
+        print("Your username is: ", self.username, "and your password is: ", self.password)
+
+class Calculator:
+    def __init__(self):
+        pass
 
     @staticmethod
-    #Information to programm, necessary labels
-    def Information():
+    def information():
         print("Press 'q' in the 'Input operation' field to quit")
         print("Press 'r' to reset")
 
     @staticmethod
-    def result_operation(Result):
-        print(Result)
+    def result_operation(result):
+        print(result)
 
     @staticmethod
     def close():
-        CloseProgramm = input("Press 'q' to quit: ")
-        if CloseProgramm.lower() == "q":
+        close_program = input("Press 'q' to quit: ")
+        if close_program.lower() == "q":
             print("The program will be closed")
-            log_out.log_out()
 
     @staticmethod
-    def exit_p():
-        e = input("Do you want to exit the program? (Yes or No): ")
-        if e.lower() == "yes":
-            calculator.close()
+    def exit_program():
+        user_input = input("Do you want to exit the program? (Yes or No): ")
+        if user_input.lower() == "yes":
+            Calculator.close()
         else:
-            calculator.calculator()
+            Calculator.calculator()
 
     @staticmethod
     def reset():
@@ -63,16 +57,14 @@ class calculator:
         return None
 
     @staticmethod
-    def perform_operation(num1, num2, Operation):
-        if Operation == "+":
+    def perform_operation(num1, num2, operation):
+        if operation == "+":
             return num1 + num2
-        elif Operation == "-":
+        elif operation == "-":
             return num1 - num2
-        elif Operation == "*":
+        elif operation == "*":
             return num1 * num2
-        elif Operation == "/":
-            return num1 / num2
-        elif Operation == "/":
+        elif operation == "/":
             if num2 == 0:
                 print("Error: Division by zero")
                 return None
@@ -80,101 +72,72 @@ class calculator:
 
     @staticmethod
     def calculator():
-        calculator.abc()
-        CloseProgramm = None
-        Result = None
-        error = None
-        l = None
-        while CloseProgramm != "q":
-            FirstNumber = float(input("Input number: "))
-            Operation = input("Input operation: ")
+        Calculator.information()
+        result = None
 
-            if Operation != "q" and Operation != "r":
-                SecondNumber = float(input("Input number: "))
-            else:
-                if (Operation == "r"):
-                    calculator.reset()
-                    break
-                if (Operation == "q"):
-                    calculator.exit_p()
-                    break
+        while True:
+            first_number = float(input("Input number: "))
+            operation = input("Input operation: ")
 
-            while (l != "="):
-                if Operation in ["+", "-", "*", "/"]:
-                    Result = calculator.perform_operation(FirstNumber, SecondNumber, Operation)
-                    print ("To continue write +,/,*,-")
-                    l = input("To see result press =:")
-                    if l == "=":
-                        if Result is not None:
-                            calculator.result_operation(Result)
-                            break
-                        else:
-                            calculator.calculator()
-                    elif l == "w":
-                        continue
-                    else:
-                        error = True
-                        print ("Error1")
-                        break
-                    if l in ["+", "-", "*", "/"]:
-                        Result = calculator.perform_operation(FirstNumber, SecondNumber, Operation)
-                        calculator.calculator()
-                        continue
-                    else:
-                        error = True
-                        print("Error2")
-                elif Operation == "r":
-                    calculator.reset()
-                    break
-
-            else:
-                error = True
-                print("Error3")
+            if operation == "q":
+                Calculator.exit_program()
+                break
+            elif operation == "r":
+                Calculator.reset()
                 break
 
-        if CloseProgramm != "q" and error is None:
-            print(Result if Result is not None else 0)
-        if Operation == "q":
-            calculator.exit_p()
-            calculator.close()
+            if operation not in ["+", "-", "*", "/"]:
+                print("Invalid operation. Please enter +, -, *, / or q to quit.")
+                continue
 
-class log_out:
+            second_number = float(input("Input number: "))
+            result = Calculator.perform_operation(first_number, second_number, operation)
+
+            l = input("To see result press '=': ")
+
+            if l == "=":
+                if result is not None:
+                    Calculator.result_operation(result)
+                    break
+            elif l == "q":
+                Calculator.exit_program()
+                break
+
+class LogOut:
     @staticmethod
     def log_out():
-        global log_out
-        log_out = True
-        global log_in
-        log_in = False
-        print('Write exit to log out')
-        exitProgramm = input ()
-        if exitProgramm == "exit":
-            print("Programm will be closed")
+        print('Write "exit" to log out')
+        exit_program = input()
+        if exit_program.lower() == "exit":
+            print("Program will be closed")
 
-
-class choose:
+class Choose:
     @staticmethod
     def choose():
-        print ("To open calculator press c")
-        print ("To open random press r")
+        print("To open calculator press 'c'")
+        print("To open random press 'r'")
 
-class randomNumber:
+class RandomNumber:
     @staticmethod
-    def randomNumber ():
-        randomNumber = random.randint(0,100)
-        print ('Your random number is:',randomNumber)
+    def random_number():
+        random_number = random.randint(0, 100)
+        print('Your random number is:', random_number)
 
 class Operation:
-    choose.choose()
     @staticmethod
-    def Operation ():
-        Operation = input ()
-        if Operation == "c":
-            log_in.log_in()
-            calculator.calculator()
-        elif Operation == "r":
-            log_in.log_in()
-            randomNumber.randomNumber()
-        else:
-            log_in.log_in()
+    def operation():
+        Choose.choose()
+        operation_choice = input()
 
-Operation.Operation()
+        if operation_choice == "c":
+            log_in_instance = LogIn()
+            if log_in_instance.log_in():
+                Calculator.calculator()
+        elif operation_choice == "r":
+            log_in_instance = LogIn()
+            if log_in_instance.log_in():
+                RandomNumber.random_number()
+        else:
+            print("Invalid choice. Exiting program.")
+
+Operation.operation()

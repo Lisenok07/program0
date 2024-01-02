@@ -1,9 +1,40 @@
 import random
+class log_in:
+    @staticmethod
+    def log_in():
+        global log_in1
+        log_in1 = True
+        userName = input("Create username: ")
+        password = input ("Create your passwod: ")
+        if userName == "None":
+            print ("Error. Your username cannot contain this")
+            log_in1 = False
+
+        else:
+            userName1 = userName
+        if password == "None":
+            print ("Your password cannot be ""None""")
+        else:
+            password1 = password
+
+        @staticmethod
+        def show():
+            print ("Your username is: ",userName1, "and your password is: ", password1)
+
+        @staticmethod
+        def see_name_and_password():
+            print ("Do you want to see password and username?")
+            see_name_and_password = input ("Write """"yes """"or """"no: """)
+            if see_name_and_password == "yes":
+                show()
+
+
 
 class calculator:
 
     @staticmethod
-    def abc():
+    #Information to programm, necessary labels
+    def Information():
         print("Press 'q' in the 'Input operation' field to quit")
         print("Press 'r' to reset")
 
@@ -16,6 +47,7 @@ class calculator:
         CloseProgramm = input("Press 'q' to quit: ")
         if CloseProgramm.lower() == "q":
             print("The program will be closed")
+            log_out.log_out()
 
     @staticmethod
     def exit_p():
@@ -106,85 +138,43 @@ class calculator:
             calculator.exit_p()
             calculator.close()
 
+class log_out:
+    @staticmethod
+    def log_out():
+        global log_out
+        log_out = True
+        global log_in
+        log_in = False
+        print('Write exit to log out')
+        exitProgramm = input ()
+        if exitProgramm == "exit":
+            print("Programm will be closed")
 
-class log_in_out:
 
-    class log_out:
-        @staticmethod
-        def log_out():
-            global log_out
-            log_out = True
-            global log_in
-            log_in = False
-            print('Write exit to log out')
-            exitProgramm = input ()
-            if exitProgramm == "exit":
-                print("Programm will be closed")
+class choose:
+    @staticmethod
+    def choose():
+        print ("To open calculator press c")
+        print ("To open random press r")
 
-    class choose:
-        @staticmethod
-        def choose():
-            print ("To open calculator press c")
-            print ("To open random press r")
-
-    class log_in:
-        @staticmethod
-        def log_in():
-            global log_in
-            log_in = True
-            userName = input("Create username: ")
-            password = input ("Create your passwod: ")
-            if userName == "None":
-                print ("Error. Your username cannot contain this")
-                log_in = False
-
-            else:
-                userName1 = userName
-            if password == "None":
-                print ("Your password cannot be ""None""")
-            else:
-                password1 = password
-
-            @staticmethod
-            def show():
-                print ("Your username is: ",userName1, "and your password is: ", password1)
-
-            @staticmethod
-            def see_name_and_password():
-                print ("Do you want to see password and username?")
-                see_name_and_password = input ("Write """"yes """"or """"no: """)
-                if see_name_and_password == "yes":
-                    show()
-            see_name_and_password()
-    choose.choose()
 class randomNumber:
     @staticmethod
     def randomNumber ():
         randomNumber = random.randint(0,100)
-        print ('Your random number is: ')
-        print (randomNumber)
+        print ('Your random number is:',randomNumber)
+
 class Operation:
+    choose.choose()
     @staticmethod
     def Operation ():
         Operation = input ()
         if Operation == "c":
-            log_in()
+            log_in.log_in()
             calculator.calculator()
         elif Operation == "r":
-            log_in()
+            log_in.log_in()
             randomNumber.randomNumber()
         else:
-            log_in()
+            log_in.log_in()
+
 Operation.Operation()
-
-class LogOut:
-    @staticmethod
-    def LogOut():
-        print ("Do you want log out?")
-        exit_p = input()
-        if exit_p == "yes":
-            log_out = True
-            log_in = False
-            log_out.log_out()
-
-LogOut.LogOut()
